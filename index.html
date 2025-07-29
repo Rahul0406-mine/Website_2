@@ -770,7 +770,7 @@
                         </div>
                     </div>
                      <div style="text-align: center;">
-                        <button id="getCustomPlanBtn" class="primary-btn">Get Your Custom Plan</button>
+                        <a href="https://cal.com/automation-pals/main-meeting" target="_blank" class="primary-btn">Get Your Custom Plan</a>
                     </div>
                 </div>
             </div>
@@ -1058,8 +1058,7 @@
             const calculateScoreBtn = document.getElementById('calculateScoreBtn');
             const scrollToCalculatorBtn = document.getElementById('scrollToCalculatorBtn');
             const leadForm = document.getElementById('leadForm');
-            const getCustomPlanBtn = document.getElementById('getCustomPlanBtn');
-
+            
             // --- Modal Logic ---
             function openModal(modal) {
                 modal.style.display = 'flex';
@@ -1195,9 +1194,7 @@
                 document.getElementById('roi-calculator-section').scrollIntoView({ behavior: 'smooth' });
             });
             
-            getCustomPlanBtn.addEventListener('click', () => {
-                openModal(leadCaptureModal);
-            });
+            // No longer need a separate listener for the custom plan button as it's an anchor tag now
             
             leadForm.addEventListener('submit', handleLeadSubmit);
             
