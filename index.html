@@ -1,1244 +1,153 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automations Pal - AI-Powered Real Estate Automation</title>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Web Solutions</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: #1a1a1a;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, h5, h6, .logo, .section-title, .service-title, .step-title, .stat-number, .final-cta h2, .modal-header h2 {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #2563eb;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            padding: 8rem 2rem 6rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff, #e2e8f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: #cbd5e1;
-            margin-bottom: 2.5rem;
-            font-weight: 400;
-        }
-
-        .hero-cta {
-            display: inline-flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .primary-btn {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .primary-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
-        }
-
-        .secondary-btn {
-            background: transparent;
-            color: white;
-            padding: 1rem 2rem;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .secondary-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 6rem 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: #64748b;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* About Me Section */
-        #about-me-section {
-            background: #f0f9ff;
-        }
-        .about-me-text {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .about-me-text h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 1.5rem;
-        }
-        .about-me-text p {
-            font-size: 1.1rem;
-            color: #475569;
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-
-        /* ROI Calculator Section */
-        #roi-calculator-section {
-            background: #f8fafc;
-        }
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 2rem;
-        }
-        @media (min-width: 1024px) {
-            .calculator-grid {
-                grid-template-columns: 2fr 3fr;
-            }
-        }
-        .calculator-inputs, .calculator-outputs {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        input[type="range"] {
-            -webkit-appearance: none; appearance: none; width: 100%; height: 8px;
-            background: #e2e8f0; border-radius: 9999px; outline: none; opacity: 0.9;
-            transition: opacity .2s;
-        }
-        input[type="range"]:hover { opacity: 1; }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none; width: 20px; height: 20px;
-            background: #2563eb; cursor: pointer; border-radius: 50%; border: 2px solid white;
-        }
-        input[type="range"]::-moz-range-thumb {
-            width: 20px; height: 20px; background: #2563eb; cursor: pointer;
-            border-radius: 50%; border: 2px solid white;
-        }
-
-        /* Services Section */
-        .services {
-            background: #f8fafc;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .service-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1rem;
-        }
-
-        .service-description {
-            color: #64748b;
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .service-features {
-            list-style: none;
-        }
-
-        .service-features li {
-            padding: 0.5rem 0;
-            color: #475569;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .service-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #10b981;
-            font-weight: bold;
-        }
-
-        /* Comparison Table */
-        .comparison {
-            background: white;
-        }
-
-        .comparison-table {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .comparison-table table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .comparison-table th {
-            background: linear-gradient(135deg, #1e293b, #334155);
-            color: white;
-            padding: 1.5rem;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-align: left;
-        }
-
-        .comparison-table td {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid #e2e8f0;
-            font-weight: 500;
-        }
-
-        .comparison-table tr:nth-child(even) {
-            background: #f8fafc;
-        }
-
-        .comparison-table .highlight {
-            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-            font-weight: 600;
-            color: #1e40af;
-        }
-
-        /* Process Section */
-        .process {
-            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-        }
-
-        .process-timeline {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .process-step {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            text-align: center;
-            position: relative;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.2rem;
-            margin: 0 auto 1rem;
-        }
-
-        .step-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 0.75rem;
-        }
-
-        .step-description {
-            color: #64748b;
-            line-height: 1.6;
-        }
-
-        /* Stats Section */
-        .stats {
-            background: #1e293b;
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            font-weight: 500;
-        }
-
-        /* CTA Section */
-        .final-cta {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            text-align: center;
-        }
-
-        .final-cta h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .final-cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        /* Footer */
-        .footer {
-            background: #0f172a;
-            color: #cbd5e1;
-            padding: 3rem 2rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #3b82f6;
-            margin-bottom: 1rem;
-        }
-        
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 1rem;
-        }
-
-        .modal-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            max-width: 1000px; /* Increased width */
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            transform: scale(0.95);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-        
-        .modal-overlay.active .modal-container {
-            transform: scale(1);
-            opacity: 1;
-        }
-        
-        .modal-header {
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: center;
-        }
-        
-        .modal-header h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1e293b;
-        }
-        
-        .modal-body {
-            padding: 2rem;
-        }
-        
-        .question-section {
-            margin-bottom: 2rem;
-        }
-        
-        .question-section h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #334155;
-        }
-        
-        .question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            background: #f8fafc;
-            border-radius: 8px;
-            margin-bottom: 0.75rem;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .question p {
-            flex-grow: 1;
-            margin-right: 1.5rem;
-        }
-        
-        .radio-group {
-            display: flex;
-            gap: 0.5rem;
-            flex-shrink: 0;
-        }
-
-        .radio-group input[type="radio"] {
-            display: none;
-        }
-        
-        .radio-group label {
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid #cbd5e1;
-            font-weight: 500;
-        }
-        
-        .radio-group input[type="radio"]:checked + label {
-            background: #2563eb;
-            color: white;
-            border-color: #2563eb;
-        }
-        
-        .modal-footer {
-            padding: 1.5rem 2rem;
-            text-align: center;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        #calculateScoreBtn {
-            background: #10b981;
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        #calculateScoreBtn:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-        }
-        
-        #scoreModal .modal-container, #leadCaptureModal .modal-container {
-            max-width: 500px;
-        }
-        
-        .spinner {
-            border-top-color: #3498db;
-            animation: spin 1s linear infinite;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            border-top-color: transparent;
-            display: inline-block;
-            margin-left: 0.5rem;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .comparison-table {
-                font-size: 0.9rem;
-            }
-            
-            .process-timeline {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out;
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <!-- Navigation -->
+      <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">Automations Pal</div>
-            <a href="https://cal.com/automation-pals/main-meeting" target="_blank" class="cta-button">Get Started</a>
+          <div class="nav-brand">
+            <h2>ModernWeb</h2>
+          </div>
+          <ul class="nav-menu">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
         </div>
-    </nav>
+      </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content fade-in">
-            <h1>Real Estate Professionals Should Focus on Deals, Not Admin</h1>
-            <p class="hero-subtitle">We give real estate teams AI-powered leverage to scale without chaos, turning technology into their competitive advantage through intelligent automation.</p>
-            <div class="hero-cta">
-                <a href="https://cal.com/automation-pals/main-meeting" target="_blank" class="primary-btn">Schedule Free Consultation</a>
-                <button class="secondary-btn" id="freeAuditBtn">Free Audit</button>
+      <!-- Hero Section -->
+      <section id="home" class="hero">
+        <div class="hero-container">
+          <div class="hero-content">
+            <h1 class="hero-title">Build Amazing Web Experiences</h1>
+            <p class="hero-subtitle">Create stunning, responsive websites with modern technologies and exceptional user experiences that drive results.</p>
+            <div class="hero-buttons">
+              <button class="btn btn-primary">Get Started</button>
+              <button class="btn btn-secondary">Learn More</button>
             </div>
+          </div>
+          <div class="hero-image">
+            <div class="hero-card">
+              <div class="card-header"></div>
+              <div class="card-content">
+                <div class="card-line"></div>
+                <div class="card-line short"></div>
+                <div class="card-line"></div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-     
-    <!-- About Me Section -->
-    <section id="about-me-section" class="section">
+      <!-- Features Section -->
+      <section id="features" class="features">
         <div class="container">
-            <div class="about-me-text fade-in">
-                <h2>Hi, I'm Rahul Raj</h2>
-                <p>I founded Automations Pal with a simple belief: real estate professionals should spend their time on deals and relationships, not drowning in paperwork.</p>
-                <p>Over the past year, I've been building AI automation systems that eliminate the manual work that bogs down growing real estate agencies. As a solopreneur, I work directly with each client to understand their unique challenges and build solutions that actually work.</p>
+          <div class="section-header">
+            <h2>Why Choose Us</h2>
+            <p>Discover the features that make us stand out from the competition</p>
+          </div>
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-icon">⚡</div>
+              <h3>Lightning Fast</h3>
+              <p>Optimized performance with cutting-edge technologies for blazing fast load times.</p>
             </div>
+            <div class="feature-card">
+              <div class="feature-icon">📱</div>
+              <h3>Responsive Design</h3>
+              <p>Beautiful designs that work perfectly on all devices, from mobile to desktop.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🔒</div>
+              <h3>Secure & Reliable</h3>
+              <p>Built with security best practices and reliable infrastructure you can trust.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🎨</div>
+              <h3>Modern Design</h3>
+              <p>Clean, contemporary designs that engage users and drive conversions.</p>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- ROI Calculator Section -->
-    <section id="roi-calculator-section" class="section">
+      <!-- Stats Section -->
+      <section class="stats">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Calculate Your Potential ROI</h2>
-                <p class="section-subtitle">Use our interactive calculator to see how AI automation can impact your bottom line. Adjust the sliders to match your agency's numbers.</p>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" data-target="500">0</div>
+              <div class="stat-label">Projects Completed</div>
             </div>
-            <div class="calculator-grid">
-                <div class="calculator-inputs fade-in">
-                    <h3 style="font-family: 'Montserrat', sans-serif; font-size: 1.5rem; margin-bottom: 2rem;">Adjust Your Metrics</h3>
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                        <div>
-                            <label for="agents" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span># of Agents</span><span id="agentsValue" style="font-weight: 600; color: #2563eb;">25</span></label>
-                            <input type="range" id="agents" min="1" max="200" value="25">
-                        </div>
-                        <div>
-                            <label for="leads" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Avg Leads/Agent/Day</span><span id="leadsValue" style="font-weight: 600; color: #2563eb;">30</span></label>
-                            <input type="range" id="leads" min="1" max="100" value="30">
-                        </div>
-                        <div>
-                            <label for="conversion" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Conversion Rate (%)</span><span id="conversionValue" style="font-weight: 600; color: #2563eb;">8%</span></label>
-                            <input type="range" id="conversion" min="1" max="50" value="8">
-                        </div>
-                        <div>
-                            <label for="commission" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Avg Commission/Deal</span><span id="commissionValue" style="font-weight: 600; color: #2563eb;">$6,000</span></label>
-                            <input type="range" id="commission" min="500" max="20000" step="100" value="6000">
-                        </div>
-                        <div>
-                            <label for="hourlyCost" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Agent Hourly Cost</span><span id="hourlyCostValue" style="font-weight: 600; color: #2563eb;">$40</span></label>
-                            <input type="range" id="hourlyCost" min="10" max="150" value="40">
-                        </div>
-                        <div>
-                            <label for="timePerLead" style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>Hours/Lead (Manual)</span><span id="timePerLeadValue" style="font-weight: 600; color: #2563eb;">0.5 hr</span></label>
-                            <input type="range" id="timePerLead" min="0.1" max="3" step="0.1" value="0.5">
-                        </div>
-                    </div>
-                </div>
-                <div class="calculator-outputs fade-in">
-                    <div style="background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 2rem; border-radius: 12px; text-align: center; margin-bottom: 2rem;">
-                        <h3 style="opacity: 0.9; margin-bottom: 0.5rem; font-size: 1.2rem; font-weight: 600;">Estimated Monthly Net Profit Gain</h3>
-                        <p id="netProfitGain" style="font-size: 3rem; font-weight: 800;">$0</p>
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                        <div>
-                            <h4 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem;">Leads Handled / Day</h4>
-                            <p><span style="color: #f97316;">🟠 Manual:</span> <strong id="leadsHandledManual">0</strong></p>
-                            <p><span style="color: #10b981;">🟢 With AI:</span> <strong id="leadsHandledAi">0</strong></p>
-                        </div>
-                        <div>
-                            <h4 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem;">Deals Closed / Month</h4>
-                            <p><span style="color: #f97316;">🟠 Manual:</span> <strong id="dealsClosedManual">0</strong></p>
-                            <p><span style="color: #10b981;">🟢 With AI:</span> <strong id="dealsClosedAi">0</strong></p>
-                        </div>
-                        <div>
-                            <h4 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem;">Labor Cost Saved</h4>
-                            <p id="laborCostSaved" style="font-size: 1.5rem; font-weight: 700; color: #10b981;">$0</p>
-                        </div>
-                        <div>
-                            <h4 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem;">Extra Revenue</h4>
-                            <p id="extraRevenue" style="font-size: 1.5rem; font-weight: 700; color: #10b981;">$0</p>
-                        </div>
-                    </div>
-                     <div style="text-align: center;">
-                        <a href="https://cal.com/automation-pals/main-meeting" target="_blank" class="primary-btn">Get Your Custom Plan</a>
-                    </div>
-                </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="50">0</div>
+              <div class="stat-label">Happy Clients</div>
             </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="99">0</div>
+              <div class="stat-label">Uptime %</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="24">0</div>
+              <div class="stat-label">Support Hours</div>
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Services Section -->
-    <section id="services" class="section services">
+      <!-- Footer -->
+      <footer class="footer">
         <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">AI-Powered Solutions That Actually Work</h2>
-                <p class="section-subtitle">We automate real estate operations so you grow faster, spend less, and let your team focus on deals—not admin.</p>
+          <div class="footer-content">
+            <div class="footer-section">
+              <h3>ModernWeb</h3>
+              <p>Creating exceptional web experiences with modern technologies and innovative design solutions.</p>
             </div>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">🤖</div>
-                    <h3 class="service-title">Smart Chat Assistants</h3>
-                    <p class="service-description">Multi-agent RAG-powered conversational AI systems that know everything about your business and coordinate different tasks like a digital project manager.</p>
-                    <ul class="service-features">
-                        <li>24/7 lead qualification and routing</li>
-                        <li>Instant property information delivery</li>
-                        <li>Seamless CRM integration</li>
-                        <li>Multi-language support</li>
-                    </ul>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">📞</div>
-                    <h3 class="service-title">AI Voice Agents</h3>
-                    <p class="service-description">Concurrent multi-call voice processing with sentiment analysis - like having a super-efficient receptionist who never forgets and works 24/7.</p>
-                    <ul class="service-features">
-                        <li>Handle 20+ calls simultaneously</li>
-                        <li>Advanced sentiment analysis</li>
-                        <li>Perfect call recording and transcription</li>
-                        <li>Automated follow-up scheduling</li>
-                    </ul>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">⚡</div>
-                    <h3 class="service-title">Workflow Automation</h3>
-                    <p class="service-description">End-to-end workflow automation with intelligent task orchestration - a digital assembly line that connects all your business pieces.</p>
-                    <ul class="service-features">
-                        <li>Automated document processing</li>
-                        <li>Smart lead distribution</li>
-                        <li>Transaction milestone tracking</li>
-                        <li>Performance analytics dashboard</li>
-                    </ul>
-                </div>
+            <div class="footer-section">
+              <h4>Services</h4>
+              <ul>
+                <li><a href="#">Web Development</a></li>
+                <li><a href="#">UI/UX Design</a></li>
+                <li><a href="#">E-commerce</a></li>
+                <li><a href="#">Consulting</a></li>
+              </ul>
             </div>
+            <div class="footer-section">
+              <h4>Company</h4>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+            <div class="footer-section">
+              <h4>Connect</h4>
+              <ul>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">LinkedIn</a></li>
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Email</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>&copy; 2025 ModernWeb. All rights reserved.</p>
+          </div>
         </div>
-    </section>
-
-    <!-- Process Section -->
-    <section id="process" class="section process">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">30-Day Implementation Process</h2>
-                <p class="section-subtitle">From analysis to deployment, we handle everything so you can focus on what you do best.</p>
-            </div>
-            <div class="process-timeline">
-                <div class="process-step fade-in">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">Audit Phase</h3>
-                    <p class="step-description">Days 1-7: Analyze current systems and identify automation opportunities with highest ROI potential.</p>
-                </div>
-                <div class="process-step fade-in">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">Prioritize Phase</h3>
-                    <p class="step-description">Days 8-14: Focus on key bottlenecks and create custom automation blueprint for your business.</p>
-                </div>
-                <div class="process-step fade-in">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">Build Phase</h3>
-                    <p class="step-description">Days 15-21: Develop custom AI agents and automation workflows tailored to your operations.</p>
-                </div>
-                <div class="process-step fade-in">
-                    <div class="step-number">4</div>
-                    <h3 class="step-title">Execute Phase</h3>
-                    <p class="step-description">Days 22-28: Deploy and integrate systems seamlessly into your existing operations.</p>
-                </div>
-                <div class="process-step fade-in">
-                    <div class="step-number">5</div>
-                    <h3 class="step-title">Training Phase</h3>
-                    <p class="step-description">Days 29-30: Complete team training, documentation, and handoff with ongoing support access.</p>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 4rem;">
-                <a href="https://cal.com/automation-pals/main-meeting" target="_blank" class="primary-btn">Book Your Implementation Call</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section id="results" class="section stats">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Results That Speak for Themselves</h2>
-                <p class="section-subtitle">Our clients see measurable improvements in efficiency, cost savings, and revenue generation.</p>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-item fade-in">
-                    <div class="stat-number">75-90%</div>
-                    <div class="stat-label">Time Saved on Lead Qualification</div>
-                </div>
-                <div class="stat-item fade-in">
-                    <div class="stat-number">15-30%</div>
-                    <div class="stat-label">Increase in Deal Closures</div>
-                </div>
-                <div class="stat-item fade-in">
-                    <div class="stat-number">60-80%</div>
-                    <div class="stat-label">Reduction in Cost Per Lead</div>
-                </div>
-                <div class="stat-item fade-in">
-                    <div class="stat-number">470%</div>
-                    <div class="stat-label">Average ROI After Setup</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Comparison Section -->
-    <section id="comparison" class="section comparison">
-        <div class="container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Why Automations Pal vs. Generic Tools</h2>
-                <p class="section-subtitle">We're not another monthly subscription that drains your budget while you figure out implementation.</p>
-            </div>
-            <div class="comparison-table fade-in">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Generic Tools (Zapier, etc.)</th>
-                            <th class="highlight">Automations Pal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Setup</strong></td>
-                            <td>DIY monthly subscription</td>
-                            <td class="highlight">Done-for-you one-time implementation</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Customization</strong></td>
-                            <td>Limited templates</td>
-                            <td class="highlight">Fully custom-built for your business</td>
-                        </tr>
-                        <tr>
-                            <td><strong>AI Integration</strong></td>
-                            <td>Basic triggers</td>
-                            <td class="highlight">Advanced RAG-powered intelligent agents</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Support</strong></td>
-                            <td>Help docs + forums</td>
-                            <td class="highlight">Complete training + ongoing consultation</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Industry Focus</strong></td>
-                            <td>Generic workflows</td>
-                            <td class="highlight">Real estate-specific solutions</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Cost Structure</strong></td>
-                            <td>Monthly subscription drain</td>
-                            <td class="highlight">One-time investment with clear ROI</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section id="contact" class="section final-cta">
-        <div class="container fade-in">
-            <h2>Ready to Scale Without the Chaos?</h2>
-            <p>Join successful real estate agencies who've eliminated operational friction and focus on what matters most - deals and relationships.</p>
-            <a href="https://cal.com/automation-pals/main-meeting" target="_blank" class="primary-btn" style="font-size: 1.2rem; padding: 1.25rem 2.5rem;">Schedule Your Free Automation Audit</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">Automations Pal</div>
-            <p>&copy; 2025 Automations Pal. All rights reserved. Built for real estate professionals who demand results.</p>
-        </div>
-    </footer>
-    
-    <!-- Questionnaire Modal -->
-    <div id="questionnaireModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2>Operational Maturity Scorecard</h2>
-            </div>
-            <div class="modal-body" id="questionnaireForm">
-                <!-- Questions will be injected here -->
-            </div>
-            <div class="modal-footer">
-                <button id="calculateScoreBtn" disabled>Calculate My Score</button>
-            </div>
-        </div>
+      </footer>
     </div>
-    
-    <!-- Score Modal -->
-    <div id="scoreModal" class="modal-overlay">
-        <div class="modal-container">
-             <div class="modal-header">
-                <h2>Your Operational Maturity Score</h2>
-            </div>
-            <div class="modal-body" style="text-align: center;">
-                <p id="finalScoreDisplay" style="font-size: 4rem; font-weight: 800; color: #2563eb; margin: 1rem 0;">0</p>
-                <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px;">
-                    <h3 id="maturityLevel" style="font-size: 1.5rem; font-weight: 700;"></h3>
-                    <p id="maturityInterpretation" style="color: #64748b; margin-top: 0.5rem;"></p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                 <button id="scrollToCalculatorBtn" class="primary-btn">Know How &rarr;</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Lead Capture Modal -->
-    <div id="leadCaptureModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2>One Last Step!</h2>
-            </div>
-            <div class="modal-body">
-                 <p style="text-align: center; color: #64748b; margin-bottom: 1.5rem;">Enter your details to get your personalized action plan.</p>
-                 <form id="leadForm" style="display: flex; flex-direction: column; gap: 1rem;">
-                    <input type="text" id="leadName" placeholder="Your Name" required style="padding: 0.8rem; border-radius: 6px; border: 1px solid #cbd5e1;">
-                    <input type="email" id="leadEmail" placeholder="Your Email Address" required style="padding: 0.8rem; border-radius: 6px; border: 1px solid #cbd5e1;">
-                    <p id="leadError" style="color: #ef4444; text-align: center; height: 1rem;"></p>
-                    <button type="submit" id="submitLeadBtn" class="primary-btn" style="display: flex; align-items: center; justify-content: center;">
-                        <span>Submit</span>
-                        <div id="submitLeadSpinner" class="spinner" style="display: none;"></div>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Constants and Globals ---
-            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw82-qZH1JHi_5wign0Ib_vXEj9rEVZr0mZRkhToCyNkvjGgPAkLiJaEA6JIz7pu8icQ/exec';
-            const questions = [
-                { section: "Lead Qualification & Follow-Up", text: "Our agents follow up with every new lead within 10 minutes — 24/7." },
-                { section: "Lead Qualification & Follow-Up", text: "We know exactly how many leads are “hot,” “warm,” or “dead” at any time." },
-                { section: "Lead Qualification & Follow-Up", text: "Our system filters out unqualified leads before an agent ever calls." },
-                { section: "Lead Qualification & Follow-Up", text: "We never miss follow-ups — even during weekends or off-hours." },
-                { section: "Lead Qualification & Follow-Up", text: "We spend less than $10 per qualified lead on average." },
-                { section: "Documentation & Compliance", text: "We complete lease/contracts/doc filings within 24 hours — without errors." },
-                { section: "Documentation & Compliance", text: "Agents never have to spend time organizing, filing, or searching for documents." },
-                { section: "Documentation & Compliance", text: "We’ve had zero compliance issues or fines in the past 12 months." },
-                { section: "Documentation & Compliance", text: "Clients can e-sign everything and get confirmations instantly." },
-                { section: "Documentation & Compliance", text: "We’ve automated 50%+ of our back-office admin work." },
-                { section: "Agent Time & Productivity", text: "Our agents spend 80%+ of their time on high-value tasks (closing, showings, offers)." },
-                { section: "Agent Time & Productivity", text: "We’ve eliminated 2+ hours/day of admin work per agent through automation." },
-                { section: "Agent Time & Productivity", text: "We can onboard a new agent with minimal human handholding." },
-                { section: "Agent Time & Productivity", text: "Our agents close more deals now than they did 12 months ago — without burnout." },
-                { section: "Agent Time & Productivity", text: "We can scale to handle 2x the leads without doubling the team." },
-                { section: "Operational ROI & Cost Efficiency", text: "We can measure the ROI of each stage in our sales funnel." },
-                { section: "Operational ROI & Cost Efficiency", text: "We’ve reduced lead handling or admin costs by at least 20% in the last year." },
-                { section: "Operational ROI & Cost Efficiency", text: "Our systems enable better forecasting and cash flow planning." },
-                { section: "Operational ROI & Cost Efficiency", text: "We’ve saved 1,000+ hours/year via tech or automation." },
-                { section: "Operational ROI & Cost Efficiency", text: "Our ops cost per transaction has dropped year over year." },
-            ];
-            const scoreTiers = [
-                { range: [0, 40], level: "Manual Mayhem", interpretation: "You're likely burning agent hours, losing leads, and missing easy savings." },
-                { range: [41, 60], level: "Band-Aid Ops", interpretation: "Some systems in place, but you’re leaving serious money on the table." },
-                { range: [61, 80], level: "Smart Scaling", interpretation: "You’ve built a good foundation. Now it’s time to optimize and scale." },
-                { range: [81, 100], level: "AI-Optimized Machine", interpretation: "You’re running lean, fast, and profitable. Time to double down and dominate." },
-            ];
-
-            // --- DOM Elements ---
-            const freeAuditBtn = document.getElementById('freeAuditBtn');
-            const questionnaireModal = document.getElementById('questionnaireModal');
-            const scoreModal = document.getElementById('scoreModal');
-            const leadCaptureModal = document.getElementById('leadCaptureModal');
-            const questionnaireForm = document.getElementById('questionnaireForm');
-            const calculateScoreBtn = document.getElementById('calculateScoreBtn');
-            const scrollToCalculatorBtn = document.getElementById('scrollToCalculatorBtn');
-            const leadForm = document.getElementById('leadForm');
-            
-            // --- Modal Logic ---
-            function openModal(modal) {
-                modal.style.display = 'flex';
-                setTimeout(() => modal.classList.add('active'), 10);
-            }
-            
-            function closeModal(modal) {
-                modal.classList.remove('active');
-                setTimeout(() => modal.style.display = 'none', 300);
-            }
-
-            // --- Questionnaire Logic ---
-            function renderQuestions() {
-                const sections = {};
-                questions.forEach(q => {
-                    if (!sections[q.section]) {
-                        sections[q.section] = [];
-                    }
-                    sections[q.section].push(q);
-                });
-
-                let html = '';
-                for (const sectionName in sections) {
-                    html += `<div class="question-section"><h3>${sectionName}</h3>`;
-                    sections[sectionName].forEach((q, index) => {
-                        const globalIndex = questions.indexOf(q);
-                        html += `
-                            <div class="question">
-                                <p>${q.text}</p>
-                                <div class="radio-group">
-                                    <input type="radio" id="q${globalIndex}_yes" name="q${globalIndex}" value="5">
-                                    <label for="q${globalIndex}_yes">Yes</label>
-                                    <input type="radio" id="q${globalIndex}_no" name="q${globalIndex}" value="1">
-                                    <label for="q${globalIndex}_no">No</label>
-                                </div>
-                            </div>`;
-                    });
-                    html += `</div>`;
-                }
-                questionnaireForm.innerHTML = html;
-            }
-
-            function checkAllAnswered() {
-                const answeredCount = questionnaireForm.querySelectorAll('input[type="radio"]:checked').length;
-                calculateScoreBtn.disabled = answeredCount !== questions.length;
-            }
-
-            function showScore() {
-                let totalScore = 0;
-                questionnaireForm.querySelectorAll('input[type="radio"]:checked').forEach(input => {
-                    totalScore += parseInt(input.value);
-                });
-
-                const tier = scoreTiers.find(t => totalScore >= t.range[0] && totalScore <= t.range[1]);
-                
-                document.getElementById('finalScoreDisplay').textContent = totalScore;
-                document.getElementById('maturityLevel').textContent = tier.level;
-                document.getElementById('maturityInterpretation').textContent = tier.interpretation;
-                
-                closeModal(questionnaireModal);
-                openModal(scoreModal);
-            }
-            
-            // --- Lead Capture Logic ---
-            function handleLeadSubmit(e) {
-                e.preventDefault();
-                const nameInput = document.getElementById('leadName');
-                const emailInput = document.getElementById('leadEmail');
-                const errorEl = document.getElementById('leadError');
-                const submitBtn = document.getElementById('submitLeadBtn');
-                const spinner = document.getElementById('submitLeadSpinner');
-
-                const name = nameInput.value.trim();
-                const email = emailInput.value.trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-                if (!emailRegex.test(email)) {
-                    errorEl.textContent = 'Please enter a valid email address.';
-                    return;
-                }
-                errorEl.textContent = '';
-                
-                submitBtn.disabled = true;
-                spinner.style.display = 'inline-block';
-
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify({ name, email }),
-                    headers: { 'Content-Type': 'application/json' }
-                })
-                .then(() => {
-                    console.log('Lead submitted');
-                    closeModal(leadCaptureModal);
-                    // Optionally show a success message on the main page
-                })
-                .catch(err => {
-                    console.error('Submission Error:', err);
-                    errorEl.textContent = 'Submission failed. Please try again.';
-                })
-                .finally(() => {
-                    submitBtn.disabled = false;
-                    spinner.style.display = 'none';
-                });
-            }
-            
-            // --- ROI Calculator Logic ---
-            const roiInputs = { agents: document.getElementById('agents'), leads: document.getElementById('leads'), conversion: document.getElementById('conversion'), commission: document.getElementById('commission'), hourlyCost: document.getElementById('hourlyCost'), timePerLead: document.getElementById('timePerLead') };
-            const roiValueDisplays = { agents: document.getElementById('agentsValue'), leads: document.getElementById('leadsValue'), conversion: document.getElementById('conversionValue'), commission: document.getElementById('commissionValue'), hourlyCost: document.getElementById('hourlyCostValue'), timePerLead: document.getElementById('timePerLeadValue') };
-            const roiOutputs = { leadsHandledManual: document.getElementById('leadsHandledManual'), leadsHandledAi: document.getElementById('leadsHandledAi'), dealsClosedManual: document.getElementById('dealsClosedManual'), dealsClosedAi: document.getElementById('dealsClosedAi'), laborCostSaved: document.getElementById('laborCostSaved'), extraRevenue: document.getElementById('extraRevenue'), netProfitGain: document.getElementById('netProfitGain') };
-            const formatCurrency = (value) => value.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 });
-            function calculateROI() {
-                const A = parseFloat(roiInputs.agents.value), L = parseFloat(roiInputs.leads.value), C = parseFloat(roiInputs.conversion.value) / 100, D = parseFloat(roiInputs.commission.value), H = parseFloat(roiInputs.hourlyCost.value), T = parseFloat(roiInputs.timePerLead.value), days = 21;
-                const manualLeads = A * L, manualDeals = manualLeads * C * days, manualHours = manualLeads * T;
-                const aiLeads = manualLeads * 4, aiDeals = aiLeads * (C * 1.25) * days;
-                const savedHours = manualHours * 0.75, savedCost = savedHours * H * days;
-                const extraRevenue = (aiDeals - manualDeals) * D, netGain = savedCost + extraRevenue;
-                roiValueDisplays.agents.textContent = A; roiValueDisplays.leads.textContent = L; roiValueDisplays.conversion.textContent = `${(C * 100).toFixed(0)}%`; roiValueDisplays.commission.textContent = formatCurrency(D); roiValueDisplays.hourlyCost.textContent = formatCurrency(H); roiValueDisplays.timePerLead.textContent = `${T.toFixed(1)} hr`;
-                roiOutputs.leadsHandledManual.textContent = Math.round(manualLeads).toLocaleString(); roiOutputs.leadsHandledAi.textContent = Math.round(aiLeads).toLocaleString(); roiOutputs.dealsClosedManual.textContent = Math.round(manualDeals).toLocaleString(); roiOutputs.dealsClosedAi.textContent = Math.round(aiDeals).toLocaleString(); roiOutputs.laborCostSaved.textContent = formatCurrency(savedCost); roiOutputs.extraRevenue.textContent = formatCurrency(extraRevenue); roiOutputs.netProfitGain.textContent = formatCurrency(netGain);
-            }
-
-
-            // --- Event Listeners ---
-            freeAuditBtn.addEventListener('click', () => {
-                openModal(questionnaireModal);
-            });
-
-            questionnaireForm.addEventListener('change', checkAllAnswered);
-            calculateScoreBtn.addEventListener('click', showScore);
-            
-            scrollToCalculatorBtn.addEventListener('click', () => {
-                closeModal(scoreModal);
-                document.getElementById('roi-calculator-section').scrollIntoView({ behavior: 'smooth' });
-            });
-            
-            // No longer need a separate listener for the custom plan button as it's an anchor tag now
-            
-            leadForm.addEventListener('submit', handleLeadSubmit);
-            
-            // Close modals on overlay click
-            document.querySelectorAll('.modal-overlay').forEach(overlay => {
-                overlay.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        closeModal(this);
-                    }
-                });
-            });
-
-
-            // --- Initial Setup ---
-            renderQuestions();
-            calculateROI();
-            Object.values(roiInputs).forEach(input => input.addEventListener('input', calculateROI));
-
-
-            // Original page animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.fade-in').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                observer.observe(el);
-            });
-
-            document.querySelectorAll('.primary-btn, .secondary-btn, .cta-button').forEach(btn => {
-                // This check prevents the script from interfering with anchor tags styled as buttons
-                if (btn.tagName.toLowerCase() === 'button') {
-                     btn.addEventListener('click', function(e) {
-                        this.style.transform = 'scale(0.95)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 150);
-                    });
-                }
-            });
-        });
-    </script>
-</body>
+    <script type="module" src="/main.js"></script>
+  </body>
 </html>
